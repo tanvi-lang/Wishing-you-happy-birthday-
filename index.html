@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Surprise!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght=600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #fffcf7;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Slide Container */
+        .slide {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .active {
+            display: flex;
+        }
+
+        /* --- SLIDE 1 & 2: GRID & CUTE MEME LOOK --- */
+        .grid-bg {
+            background-color: #f7ebd9;
+            background-image: 
+                linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .blob-left {
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 15%;
+            background: #b04a5a;
+            border-radius: 0 100px 100px 0;
+            z-index: 1;
+        }
+        .blob-right {
+            position: absolute;
+            right: 0; bottom: 0;
+            width: 25%; height: 25%;
+            background: #b04a5a;
+            border-radius: 100px 0 0 0;
+            z-index: 1;
+        }
+
+        .content-box {
+            position: relative;
+            z-index: 2;
+            max-width: 90%;
+        }
+
+        .cat-img {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: #832b3b;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .subtext {
+            font-size: 1.5rem;
+            color: #4a4a4a;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        /* Buttons */
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.3rem;
+            font-family: 'Fredoka One', cursive;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .btn-yes { background-color: #832b3b; color: white; }
+        .btn-no { background-color: #d99696; color: white; position: relative; }
+        .btn-next { background-color: #ffffff; color: #832b3b; margin-top: 15px; border: 2px solid #832b3b;}
+
+        .btn:active { transform: scale(0.95); }
+
+        /* --- SLIDE 3: PRESTIGE PINK DIARY LOOK --- */
+        .pink-bg {
+            background-color: #bc475c;
+        }
+
+        .string-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
+            border-top: 3px dashed #ffffff;
+            padding-top: 25px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 25px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            transform: rotate(-3deg);
+            width: 160px;
+            position: relative;
+        }
+
+        .polaroid::before {
+            content: '📌';
+            position: absolute;
+            top: -15px; left: 45%;
+            font-size: 1.2rem;
+        }
+
+        .polaroid:nth-child(2) { transform: rotate(4deg); }
+        .polaroid:nth-child(3) { transform: rotate(-2deg); }
+
+        .polaroid img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .pink-title {
+            font-family: 'Fredoka One', cursive;
+            color: #ffffff;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px #611724;
+            margin-bottom: 5px;
+        }
+
+        .pink-sub {
+            color: #ffe3e7;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .cake-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: Do you want to see? -->
+    <div id="slide1" class="slide grid-bg active">
+        <div class="blob-left"></div>
+        <div class="blob-right"></div>
+        <div class="content-box">
+            <img class="cat-img" src="https://media.tenor.com/EpP6n6_uSg0AAAAM/cute-cat.gif" alt="Cute Cat">
+            <h1>HEY!!</h1>
+            <p class="subtext">I made something for you.<br>Do you want to see?</p>
+            <div class="btn-container">
+                <button class="btn btn-yes" onclick="nextSlide(2)">Yes</button>
+                <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Happy Birthday Greeting -->
+    <div id="slide2" class="slide grid-bg">
+        <div class="blob-left"></div>
+        <div class="blob-right"></div>
+        <div class="content-box">
+            <img class="cat-img" src="https://media.tenor.com/2X9bshaswXgAAAAM/cat-party.gif" alt="Party Cat">
+            <h1 style="font-size: 2.5rem;">HAPPY BIRTHDAY BBG ❤️</h1>
+            <p class="subtext" style="font-size: 1.2rem; color: #631e2a;">
+                YOU ARE MY FAVORITE NOTIFICATION.<br>STAY CUTE, STAY HAPPY, STAY MINE 🌸
+            </p>
+            <button class="btn btn-next" onclick="nextSlide(3)">Next →</button>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Hanging Polaroid Showcase -->
+    <div id="slide3" class="slide pink-bg">
+        <div class="cake-icon">🎂</div>
+        <h1 class="pink-title">I ❤️ YOU</h1>
+        <p class="pink-sub">You don't know how much you mean to me</p>
+
+        <div class="string-gallery">
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=400" alt="Us 1">
+            </div>
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=400" alt="Us 2">
+            </div>
+            <div class="polaroid">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" alt="Us 3">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function nextSlide(slideNumber) {
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            document.getElementById('slide' + slideNumber).classList.add('active');
+        }
+
+        function moveNoButton() {
+            const noBtn = document.getElementById('noBtn');
+            const x = Math.floor(Math.random() * 160) - 80;
+            const y = Math.floor(Math.random() * 160) - 80;
+            noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+    </script>
+</body>
+</html>
